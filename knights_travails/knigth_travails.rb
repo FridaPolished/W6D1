@@ -19,8 +19,7 @@ class KnightPathFinder
     def initialize(origin_pos)
         @pos = origin_pos
         @root = PolyTreeNode.new(origin_pos)
-        @considered_positions = []
-        @already_travelled = [origin_pos]
+        @considered_positions = [origin_pos]
         build_move_tree
     end
 
@@ -58,13 +57,10 @@ class KnightPathFinder
     def new_move_positions(pos)
         moves = KnightPathFinder.valid_moves(pos)
 
-        selected_moves = moves.reject {|ele| @already_travelled.include?(ele)}
+        selected_moves = moves.reject {|ele| @considered_positions.include?(ele)}
         @considered_positions.concat(selected_moves)
         selected_moves
     end
-
-
-
 end
 
 knight = KnightPathFinder.new([0,0])
